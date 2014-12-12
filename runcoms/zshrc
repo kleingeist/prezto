@@ -11,3 +11,20 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# History prefix completion
+bindkey "${terminfo[kcuu1]}" history-beginning-search-backward # start typing + [Up-Arrow]
+bindkey "${terminfo[kcud1]}" history-beginning-search-forward # start typing + [Down-Arrow]
+
+
+
+# Aliases
+alias monitor="tmux attach -t monitoring || \
+  tmux new-session -d -s monitoring 'top' \; \
+       split-window -v 'watch -t sensors' \; \
+       split-window -v 'journalctl -ef' \; \
+       select-layout even-vertical \; \
+       set-option set-titles on \; \
+       set-option set-titles-string '#S' \; \
+       attach"
+
