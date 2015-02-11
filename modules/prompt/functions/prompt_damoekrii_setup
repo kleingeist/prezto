@@ -52,7 +52,7 @@ function prompt_damoekrii_setup {
   add-zsh-hook precmd prompt_damoekrii_precmd
 
   # Set editor-info parameters.
-  zstyle ':prezto:module:editor:info:keymap:primary' format ' %F{green}%(!:⚙:»)%f'
+  zstyle ':prezto:module:editor:info:keymap:primary' format ' %(?:%F{green}:%F{red})%(!:⚙:»)%f'
 
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
@@ -76,7 +76,7 @@ function prompt_damoekrii_setup {
   fi
 
   # Define prompts.
-  PROMPT='%(?::%F{red}✗ )${_host} %F{cyan}${_prompt_damoekrii_pwd}%f${editor_info[keymap]} '
+  PROMPT='${_host} %F{cyan}${_prompt_damoekrii_pwd}%f${editor_info[keymap]} '
   RPROMPT='${git_info:+${(e)git_info[rprompt]}}${ruby_info:+${ruby_info[version]}}'
 }
 
