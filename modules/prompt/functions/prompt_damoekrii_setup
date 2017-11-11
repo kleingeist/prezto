@@ -38,6 +38,11 @@ function prompt_damoekrii_precmd {
   if (( $+functions[ruby-info] )); then
     ruby-info
   fi
+
+ # Run python info (this should be fast and not require any async)
+  if (( $+functions[python-info] )); then
+    python-info
+  fi
 }
 
 function prompt_damoekrii_setup {
@@ -68,16 +73,21 @@ function prompt_damoekrii_setup {
   # Set ruby-info parameters.
   zstyle ':prezto:module:ruby:info:version' format ' %F{yellow}%v%f'
 
+  # Set python venv
+  # %v - virtualenv name.
+  export VIRTUAL_ENV_DISABLE_PROMPT=yes
+  zstyle ':prezto:module:python:info:virtualenv' format ' (%F{yellow}%v%f)'
+
   # Check if this is on a remote
-  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then 
-    _host="%F{blue}%n%F{red}@%F{green}%m%f"		
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    _host="%F{blue}%n%F{red}@%F{green}%m%f"
   else
     _host="%F{green}⌂%f"
   fi
 
   # Define prompts.
   PROMPT='${_host} %F{cyan}${_prompt_damoekrii_pwd}%f${editor_info[keymap]} '
-  RPROMPT='${git_info:+${(e)git_info[rprompt]}}${ruby_info:+${ruby_info[version]}}'
+  RPROMPT='${python_info[virtualenv]}${git_info:+${(e)git_info[rprompt]}}${ruby_info:+${ruby_info[version]}}'
 }
 
 prompt_damoekrii_setup "$@"
