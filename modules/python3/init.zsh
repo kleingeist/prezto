@@ -11,7 +11,7 @@ if (( ! $+commands[python3] )); then
   return 1
 fi
 
-VIRTUALENV_DIR_NAMES=(.env .venv)
+VIRTUALENV_DIR_NAMES=(.env .venv env)
 
 function _test_venv_dir {
   for dir_name in $VIRTUALENV_DIR_NAMES; do
